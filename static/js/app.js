@@ -35,3 +35,44 @@ $('#submit-btn').click(function(e) {
 
 // hide the weather info section immediate on load
 $('#weather_info').css('display', 'none');
+
+$.get('https://learnwebcode.github.io/json-example/animals-1.json', function(response) {
+  let head = `<tr>`;
+  let keys = Object.keys(response[0]);
+  keys.unshift('#');
+  for (let key in keys) {
+    head += `<th scope="col">${keys[key]}</th>`
+  }
+  head += `</tr>`
+  $('#table-head').html(head);
+
+  let rows = ``
+  for (let i in response) {
+    let row = `<tr>`;
+    for (let j in keys) {
+      if (j == 0) {
+        row += `<th scope="row">${i}</th>`;
+      } else {
+        let value = response[i][keys[j]];
+        if (typeof value == "object") {
+          row += `<td>`
+          for (let key in Object.keys(value)) {
+            let k = Object.keys(value)[key];
+            if (key % 2 == 0) {
+              row += `<p><b id="green">`
+            } else {
+              row += `<p><b id="red">`
+            }
+            row += `${k}:</b> ${value[k].join(', ')}</p>`;
+          }
+          row += `</td>`
+        } else {
+          row += `<td>${value}</td>`
+        }
+      }
+    }
+    row += `</tr>`;
+    rows += row;
+  }
+  $('#table-body').html(rows);
+});

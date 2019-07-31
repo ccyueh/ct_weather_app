@@ -22,6 +22,14 @@ h2 {
   padding: 25px;
 }
 
+#red {
+  color: red;
+}
+
+#green {
+  color: green;
+}
+
 footer {
   margin-top: 100px;
 }
